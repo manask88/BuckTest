@@ -1,4 +1,4 @@
-package com.bucktest2;
+package com.bucktest;
 
 import android.app.Application;
 
