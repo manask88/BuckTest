@@ -31,10 +31,22 @@ allprojects {
     }
 }
 
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support'
+              && !details.requested.name.contains('multidex') ) {
+                details.useVersion "24.0.0"
+            }
+        }
+    }
+
+}
+
 ext {
-    buildToolsVersion = "26.0.3"
+    buildToolsVersion = "25.0.0"
     minSdkVersion = 16
-    compileSdkVersion = 26
-    targetSdkVersion = 26
-    supportLibVersion = "26.1.0"
+    compileSdkVersion = 24
+    targetSdkVersion = 24
+    supportLibVersion = "24.0.0"
 }
