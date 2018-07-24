@@ -4,6 +4,8 @@
 # - `npm start` - to start the packager
 # - `cd android`
 # - `keytool -genkey -v -keystore keystores/debug.keystore -storepass android -alias androiddebugkey -keypass android -dname "CN=Android Debug,O=Android,C=US"`
+# keytool -genkey -v -keystore keystores/debug.keystore -keysize 1024 -alias b4a -validity 14000 -keypass 123456 -storepass 123456 -storepass android -alias androiddebugkey -keypass android -dname "CN=Android Debug,O=Android,C=US"
+# https://www.b4x.com/android/forum/threads/jarsigner-error-java-security-signatureexception-private-key-algorithm-is-not-compatible.87699/#content
 # - `./gradlew :app:copyDownloadableDepsToLibs` - make all Gradle compile dependencies available to Buck
 # - `buck install -r android/app` - compile, install and run application
 #
@@ -58,6 +60,12 @@ android_binary(
     name = "app",
     keystore = "//android/keystores:debug",
     manifest = "src/main/AndroidManifest.xml",
+    manifest_entries = {
+        'version_code': 12,
+        'version_name': '2.0',
+        'min_sdk_version': 16,
+        'target_sdk_version': 25
+    },
     package_type = "debug",
     deps = [
         ":app-code",
